@@ -1,16 +1,22 @@
 
 class BaseException(Exception):
-	def __init__(self, message):
+	def __init__(self, message=None):
 		self.message = message
 
 class NoParkingSlotAvailableException(BaseException):
 	pass
 
-class ParkingNotAvailableException(Exception):
+class ParkingNotAvailableException(BaseException):
 	pass
 
-class InvalidTicketIdException(Exception):
+class InvalidTicketIdException(BaseException):
 	pass
 
-class PricingRulesNotApplicableException(Exception):
+class PricingRulesNotApplicableException(BaseException):
+	pass
+
+class InvalidVehicleCategoryException(BaseException):
+	pass
+
+class InvalidParkingLotCategoryException(BaseException):
 	pass
