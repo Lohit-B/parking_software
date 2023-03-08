@@ -1,4 +1,4 @@
-Hot to run:
+How to run:
 	python3 runner_test.py
 
 
