@@ -1,5 +1,5 @@
 from parking_lot.parkinglot_factory import ParkingLotFactory
-from slot_manager.implementations import Vehicle
+from slot_manager.implementations import Vehicle, VehicleCategory
 from ticket.implementations import ParkingTicketManager
 from datetime import datetime, timedelta
 
@@ -15,21 +15,21 @@ if __name__=='__main__':
 	parking_lot = ParkingLotFactory().getParkingLot('SMALL')
 
 	print("Parking Scooter")
-	vehicle = Vehicle(1, 'Scooter')
+	vehicle = Vehicle(VehicleCategory.LIGHT, 'Scooter')
 	ticket1 = parking_lot.park(vehicle)
 	assert ticket1 != None
 	print(ticket_manager.printTicket(ticket1))
 
 
 	print("Parking Motorcycle")
-	vehicle = Vehicle(1, 'MOTOR')
+	vehicle = Vehicle(VehicleCategory.LIGHT, 'MOTOR')
 	ticket = parking_lot.park(vehicle)
 	print(ticket_manager.printTicket(ticket))
 	assert ticket != None
 
 
 	print("Parking Motorcycle 2")
-	vehicle = Vehicle(1, 'MOTOR')
+	vehicle = Vehicle(VehicleCategory.LIGHT, 'MOTOR')
 	try:
 		ticket = parking_lot.park(vehicle)
 		assert False
@@ -40,7 +40,7 @@ if __name__=='__main__':
 		assert False
 
 	print("Parking Car")
-	vehicle = Vehicle(2, 'CAR')
+	vehicle = Vehicle(VehicleCategory.MID, 'CAR')
 	try:
 		ticket = parking_lot.park(vehicle)
 	except ParkingNotAvailableException: 
@@ -55,7 +55,7 @@ if __name__=='__main__':
 	print(ticket_manager.printTicket(ticket))
 
 	print("Parking MS3")
-	vehicle = Vehicle(1, 'MOTOR3')
+	vehicle = Vehicle(VehicleCategory.LIGHT, 'MOTOR3')
 	ticket = parking_lot.park(vehicle)
 	print(ticket_manager.printTicket(ticket))
 	assert ticket != None
@@ -67,19 +67,19 @@ if __name__=='__main__':
 	mall_parking_lot = ParkingLotFactory().getParkingLot('MALL')
 
 	print('Parking MotorCycle')
-	vehicle = Vehicle(1, 'MOTOR')
+	vehicle = Vehicle(VehicleCategory.LIGHT, 'MOTOR')
 	motor_ticket = mall_parking_lot.park(vehicle)
 	assert motor_ticket != None
 	print(ticket_manager.printTicket(motor_ticket))
 
 	print('Parking CAR')
-	vehicle = Vehicle(2, 'CAR')
+	vehicle = Vehicle(VehicleCategory.MID, 'CAR')
 	car_ticket = mall_parking_lot.park(vehicle)
 	assert car_ticket != None
 	print(ticket_manager.printTicket(car_ticket))
 
 	print('Parking BUS')
-	vehicle = Vehicle(3, 'BUS')
+	vehicle = Vehicle(VehicleCategory.HEAVY, 'BUS')
 	bus_ticket = mall_parking_lot.park(vehicle)
 	assert  bus_ticket != None
 	print(ticket_manager.printTicket(bus_ticket))
@@ -104,31 +104,31 @@ if __name__=='__main__':
 	parking_lot = ParkingLotFactory().getParkingLot('STADIUM')
 
 	print('Parking MotorCycle')
-	vehicle = Vehicle(1, 'MOTOR')
+	vehicle = Vehicle(VehicleCategory.LIGHT, 'MOTOR')
 	motor_ticket = parking_lot.park(vehicle)
 	assert motor_ticket != None
 	print(ticket_manager.printTicket(motor_ticket))
 
 	print('Parking MotorCycle 2')
-	vehicle = Vehicle(1, 'MOTOR2')
+	vehicle = Vehicle(VehicleCategory.LIGHT, 'MOTOR2')
 	motor_ticket2 = parking_lot.park(vehicle)
 	assert motor_ticket2 != None
 	print(ticket_manager.printTicket(motor_ticket2))
 
 	print('Parking EV1')
-	vehicle = Vehicle(2, 'CAR')
+	vehicle = Vehicle(VehicleCategory.MID, 'CAR')
 	car_ticket = parking_lot.park(vehicle)
 	assert car_ticket != None
 	print(ticket_manager.printTicket(car_ticket))
 
 	print('Parking EV2')
-	vehicle = Vehicle(2, 'CAR')
+	vehicle = Vehicle(VehicleCategory.MID, 'CAR')
 	car_ticket2 = parking_lot.park(vehicle)
 	assert car_ticket2 != None
 	print(ticket_manager.printTicket(car_ticket2))
 
 	print('Parking BUS')
-	vehicle = Vehicle(3, 'BUS')
+	vehicle = Vehicle(VehicleCategory.HEAVY, 'BUS')
 	try:
 		bus_ticket = parking_lot.park(vehicle)
 		assert False
@@ -163,38 +163,38 @@ if __name__=='__main__':
 	parking_lot = ParkingLotFactory().getParkingLot('AIRPORT')
 
 	print('Parking MotorCycle')
-	vehicle = Vehicle(1, 'MOTOR')
+	vehicle = Vehicle(VehicleCategory.LIGHT, 'MOTOR')
 	motor_ticket = parking_lot.park(vehicle)
 	assert motor_ticket != None
 	print(ticket_manager.printTicket(motor_ticket))
 
 	print('Parking MotorCycle 2')
-	vehicle2 = Vehicle(1, 'MOTOR')
+	vehicle2 = Vehicle(VehicleCategory.LIGHT, 'MOTOR')
 	motor_ticket2 = parking_lot.park(vehicle2)
 	assert motor_ticket2 != None
 	print(ticket_manager.printTicket(motor_ticket2))
 
 	print('Parking MotorCycle 3')
-	motor_ticket3 = parking_lot.park(Vehicle(1, 'M3'))
+	motor_ticket3 = parking_lot.park(Vehicle(VehicleCategory.LIGHT, 'M3'))
 	assert motor_ticket3 != None
 	print(ticket_manager.printTicket(motor_ticket3))
 
 	print('Parking CAR 1')
-	car_ticket = parking_lot.park(Vehicle(2, 'C1'))
+	car_ticket = parking_lot.park(Vehicle(VehicleCategory.MID, 'C1'))
 	assert car_ticket != None
 	print(ticket_manager.printTicket(car_ticket))
 
 	print('Parking CAR 2')
-	car_ticket2 = parking_lot.park(Vehicle(2, 'C1'))
+	car_ticket2 = parking_lot.park(Vehicle(VehicleCategory.MID, 'C1'))
 	assert car_ticket2 != None
 	print(ticket_manager.printTicket(car_ticket2))
 	print('Parking CAR 3')
-	car_ticket3 = parking_lot.park(Vehicle(2, 'C1'))
+	car_ticket3 = parking_lot.park(Vehicle(VehicleCategory.MID, 'C1'))
 	assert car_ticket3 != None
 	print(ticket_manager.printTicket(car_ticket3))
 
 	print('Parking BUS')
-	bus_ticket = parking_lot.park(Vehicle(3, 'Bus'))
+	bus_ticket = parking_lot.park(Vehicle(VehicleCategory.HEAVY, 'Bus'))
 	assert bus_ticket != None
 	print(ticket_manager.printTicket(bus_ticket))
 		

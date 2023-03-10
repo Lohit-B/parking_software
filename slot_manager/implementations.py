@@ -1,16 +1,19 @@
 from datetime import datetime, timedelta
 from uuid import uuid4
 import math
-
-VEHICLE_CATEGORY = {1:'LIGHT', 2:'MID', 3:'HEAVY'}
-
+from enum import Enum
 from exceptions import InvalidVehicleCategoryException 
 
 from .abstractions import *
 
+
+class VehicleCategory(Enum):
+	LIGHT = 1
+	MID = 2
+	HEAVY = 3
+
 class Vehicle():
 	def __init__(self, category, title):
-		if not VEHICLE_CATEGORY.get(category):raise InvalidVehicleCategoryException('Invalid Vehicle Number')
 		self.title = title
 		self.category = category
 
@@ -34,25 +37,25 @@ class ParkingSlot(Slot):
 class AirportParkingSlotManager(SlotManager):
 	def __init__(self):
 		self.store = {}
-		self.store[1] = [ParkingSlot(i) for i in range(200)]
-		self.store[2] = [ParkingSlot(i) for i in range(500)]
-		self.store[3] = [ParkingSlot(i) for i in range(100)]
+		self.store[VehicleCategory.LIGHT.value] = [ParkingSlot(i) for i in range(200)]
+		self.store[VehicleCategory.MID.value] = [ParkingSlot(i) for i in range(500)]
+		self.store[VehicleCategory.HEAVY.value] = [ParkingSlot(i) for i in range(100)]
 
 class StadiumParkingSlotManager(SlotManager):
 	def __init__(self):
 		self.store = {}
-		self.store[1] = [ParkingSlot(i) for i in range(1000)]
-		self.store[2] = [ParkingSlot(i) for i in range(1500)]
+		self.store[VehicleCategory.LIGHT.value] = [ParkingSlot(i) for i in range(1000)]
+		self.store[VehicleCategory.MID.value] = [ParkingSlot(i) for i in range(1500)]
 
 class MallParkingSlotManager(SlotManager):
 	def __init__(self):
 		self.store = {}
-		self.store[1] = [ParkingSlot(i) for i in range(100)]
-		self.store[2] = [ParkingSlot(i) for i in range(80)]
-		self.store[3] = [ParkingSlot(i) for i in range(10)]
+		self.store[VehicleCategory.LIGHT.value] = [ParkingSlot(i) for i in range(100)]
+		self.store[VehicleCategory.MID.value] = [ParkingSlot(i) for i in range(80)]
+		self.store[VehicleCategory.HEAVY.value] = [ParkingSlot(i) for i in range(10)]
 
 class SmallParkingSlotManager(SlotManager):
 	def __init__(self):
 		self.store = {}
-		self.store[1] = [ParkingSlot(i) for i in range(2)]
+		self.store[VehicleCategory.LIGHT.value] = [ParkingSlot(i) for i in range(2)]
 

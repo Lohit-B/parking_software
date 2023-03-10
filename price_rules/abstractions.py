@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from abc import ABC, abstractmethod	
+from exceptions import ResourceNotFoundException
 
 class PricingRule(ABC):
 	def __init__(self, interval, cost):
@@ -18,7 +19,9 @@ class PricingRuleManager(ABC):
 		self.store = {}
 
 	def getPricingRulesForVehicleCategory(self, vehicle):
-		return self.store.get(vehicle.category)
+		rules = self.store.get(vehicle.category.value)
+		if not rules:raise ResourceNotFoundException
+		return rules
 
 	def calculateCost(self, total_hours, vehicle):
 		cost = 0

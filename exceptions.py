@@ -20,3 +20,6 @@ class InvalidVehicleCategoryException(BaseException):
 
 class InvalidParkingLotCategoryException(BaseException):
 	pass
+
+class ResourceNotFoundException(BaseException):
+	pass

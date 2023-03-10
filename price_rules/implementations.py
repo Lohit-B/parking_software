@@ -1,5 +1,6 @@
 import math
 from .abstractions import *
+from slot_manager.implementations import VehicleCategory
 
 class FixedPricingRule(PricingRule):
 	def calculateCost(self, time_parked_in_hours):
@@ -40,32 +41,32 @@ class HourlyPricingRuleWithCarryOn(HourlyPricingRule):
 class SmallParkingPricingRuleManager(PricingRuleManager):
 	def __init__(self):
 		self.store= {}
-		self.store[1] = [
+		self.store[VehicleCategory.LIGHT.value] = [
 			HourlyPricingRule((0,math.inf), 10) 
 		]
 
 class MallParkingPricingRuleManager(PricingRuleManager):
 	def __init__(self):
 		self.store= {}
-		self.store[1] = [
+		self.store[VehicleCategory.LIGHT.value] = [
 			HourlyPricingRule((0,math.inf),10) 
 		]
-		self.store[2] = [
+		self.store[VehicleCategory.MID.value] = [
 			HourlyPricingRule((0,math.inf),20) 
 		]
-		self.store[3] = [
+		self.store[VehicleCategory.HEAVY.value] = [
 			HourlyPricingRule((0,math.inf),50) 
 		]
 
 class StadiumParkingPricingRuleManager(PricingRuleManager):
 	def __init__(self):
 		self.store= {}
-		self.store[1] = [
+		self.store[VehicleCategory.LIGHT.value] = [
 			FixedPricingRule((0,4), 30), 
 			FixedPricingRuleWithCarryOn((4,12), 60, 30), 
 			HourlyPricingRuleWithCarryOn((12,math.inf), 100, 90)
 		]
-		self.store[2] = [
+		self.store[VehicleCategory.MID.value] = [
 			FixedPricingRule((0,4), 60), 
 			FixedPricingRuleWithCarryOn((4,12), 120, 60), 
 			HourlyPricingRuleWithCarryOn((12,math.inf), 200, 180)
@@ -74,18 +75,18 @@ class StadiumParkingPricingRuleManager(PricingRuleManager):
 class AirportParkingPricingRuleManager(PricingRuleManager):
 	def __init__(self):
 		self.store= {}
-		self.store[1] = [
+		self.store[VehicleCategory.LIGHT.value] = [
 			FixedPricingRule((0,1), 0), 
 			FixedPricingRule((1,8), 40), 
 			FixedPricingRule((8,24), 60), 
 			DailyPricingRule((24, math.inf), 80)
 		]
-		self.store[2] = [
+		self.store[VehicleCategory.MID.value] = [
 			FixedPricingRule((0,12), 60), 
 			FixedPricingRule((12,24), 80), 
 			DailyPricingRule((24,math.inf), 100)
 		]
-		self.store[3] = [
+		self.store[VehicleCategory.HEAVY.value] = [
 			FixedPricingRule((0,4), 60), 
 			FixedPricingRuleWithCarryOn((4,12), 120, 60), 
 			FixedPricingRuleWithCarryOn((12,math.inf), 200, 180)
