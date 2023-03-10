@@ -3,6 +3,7 @@ from uuid import uuid4
 import math
 
 from .abstractions import *
+from kv_store.kv_store import KVStore
 
 class ParkingTicket(Ticket):
 	def __init__(self, slot, in_time):
@@ -27,15 +28,18 @@ class ParkingTicket(Ticket):
 	def setSlot(self, slot):
 		self.slot = slot
 
+	def getId(self):
+		return str(self.id)
+
 class ParkingTicketStorage(TicketStorage):
 	def __init__(self):
-		self.tickets = {}
+		self.storage = KVStore() 
 
 	def addTicket(self, ticket):
-		self.tickets[str(ticket.id)] = ticket
+		self.storage.putValue(ticket.getId(), ticket)
 
 	def getTicket(self, ticket_id):
-		return self.tickets.get(str(ticket_id))
+		return self.storage.getValue(str(ticket_id))
 
 class ParkingTicketManager(TicketManager):
 	def __init__(self):

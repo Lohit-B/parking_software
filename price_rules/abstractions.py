@@ -14,12 +14,14 @@ class PricingRule(ABC):
 		if self.interval[1] and self.interval[1] < time_parked_in_hours: applicable = False
 		return applicable
 
-class PricingRuleManager(ABC):
-	def __init__(self):
-		self.store = {}
+class RuleStorage(ABC):
+	@abstractmethod
+	def getPricingRule(self, vehicle_category):
+		pass
 
+class PricingRuleManager(ABC):
 	def getPricingRulesForVehicleCategory(self, vehicle):
-		rules = self.store.get(vehicle.category.value)
+		rules = self.store.getPricingRule(vehicle.category.value)
 		if not rules:raise ResourceNotFoundException
 		return rules
 

@@ -20,10 +20,17 @@ class Slot(ABC):
 	def isAvailableToPark(self):
 		pass
 
+class SlotStorage(ABC):
+	@abstractmethod
+	def getAllSlots(self, vehicle_category_val):
+		pass
+
 class SlotManager(ABC):
+	def __init__(self, slot_storage):
+		self.store = slot_storage
 
 	def getParkingSlotForVehicleCategory(self, vehicle_category):
-		applicable_slots = self.store.get(vehicle_category.value)
+		applicable_slots = self.store.getAllSlots(vehicle_category.value)
 		if not applicable_slots: raise ParkingNotAvailableException()
 		available_slot = self._findFreeSlot(applicable_slots)
 		if not available_slot: raise NoParkingSlotAvailableException()
